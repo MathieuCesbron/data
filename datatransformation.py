@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from matplotlib import pyplot
 
-df = pd.read_csv('datafile/ETHUSDT.csv')
+df = pd.read_csv('BNBUSDT.csv')
 # Delete useless columns
 df.drop(['Open time', 'Close time', "Ignore"], axis=1, inplace=True)
 
@@ -34,6 +34,7 @@ def uniformalize(df):
 
 
 result = uniformalize(df)
+print(result)
 result.plot()
 pyplot.show()
 result.to_csv("aya.csv")

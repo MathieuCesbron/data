@@ -31,4 +31,4 @@ def data_creation(apikey, secretkey, pair, since):
     DATA_TO_CSV.to_csv(pair + ".csv")
 
 
-data_creation(keys.apiKey, keys.secretKey, "ETHUSDT", "1 month ago UTC")
+data_creation(keys.apiKey, keys.secretKey, "BNBUSDT", "1 week ago UTC")
