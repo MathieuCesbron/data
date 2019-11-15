@@ -31,8 +31,7 @@ class Datacreation():
                 "Ignore",
             ],
         )
-        self.dataframe.set_index("Open time", inplace=True)
-        self.dataframe.to_csv(self.pair + ".csv")
+        self.dataframe.to_csv(self.pair + ".csv", index=False)
 
     def normalize(self, dataframe):
         #scale between 0 and 1
@@ -62,8 +61,18 @@ class Datacreation():
     def uniformalize(self):
         self.creation()
         result = self.normalize(self.standardize())
+        result.plot()
+
+        # Add the real open and close price
+        to_be_added = self.dataframe[['Open', 'Close']]
+        to_be_added.rename(columns={
+            'Open': 'Real open',
+            'Close': 'Real close'
+        })
+        to_be_added = to_be_added[:-1]
+        print(to_be_added)
+        result = pd.concat([result, to_be_added], axis=1, sort=False)
+
         result.to_csv("datafile/" + self.pair + ".csv")
         os.remove(self.pair + '.csv')
-        result.plot()
         pyplot.show()
-
