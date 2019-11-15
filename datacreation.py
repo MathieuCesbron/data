@@ -66,3 +66,4 @@ class Datacreation():
         os.remove(self.pair + '.csv')
         result.plot()
         pyplot.show()
+
