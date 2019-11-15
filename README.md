@@ -6,6 +6,6 @@
 
 3)A graph will be plot to show what the standardize data looks like
 
-![]()
+![](https://github.com/MathieuCesbron/data/blob/master/images/Capture.PNG)
 
 3)You can alternatively change what pair and timeframe you want for your data in main.py
