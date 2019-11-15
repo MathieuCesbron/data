@@ -65,10 +65,7 @@ class Datacreation():
 
         # Add the real open and close price
         to_be_added = self.dataframe[['Open', 'Close']]
-        to_be_added.rename(columns={
-            'Open': 'Real open',
-            'Close': 'Real close'
-        })
+        to_be_added.columns = ['Real open', 'Real close']
         to_be_added = to_be_added[:-1]
         print(to_be_added)
         result = pd.concat([result, to_be_added], axis=1, sort=False)
