@@ -67,9 +67,9 @@ class Datacreation():
         to_be_added = self.dataframe[['Open', 'Close']]
         to_be_added.columns = ['Real open', 'Real close']
         to_be_added = to_be_added[:-1]
-        print(to_be_added)
         result = pd.concat([result, to_be_added], axis=1, sort=False)
 
+        # Add the csv and plot the result
         result.to_csv("datafile/" + self.pair + ".csv")
         os.remove(self.pair + '.csv')
         pyplot.show()
