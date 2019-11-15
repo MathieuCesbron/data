@@ -1,6 +1,4 @@
-import datetime
 import pandas as pd
-from time import sleep
 from binance.client import Client
 import keys
 
