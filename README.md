@@ -1,6 +1,6 @@
 # data
 
-1. To generate standardize data, run main.py
+1. To generate data, run main.py
 
 2. The data will be stored in the folder datafile
 
