@@ -4,7 +4,7 @@
 
 2. The data will be stored in the folder datafile
 
-3. A graph will be plot to show what the sandardize data looks like
+3. A graph will be plot to show what the data looks like
 
 Example:
 
