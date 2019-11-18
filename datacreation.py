@@ -1,75 +1,53 @@
-import pandas as pd
-import numpy as np
-from matplotlib import pyplot
-import os
 from binance.client import Client
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from matplotlib import pyplot
+import pandas as pd
+import keys
 
+#Changes these values to obtain the desired csv
+pair = "BTCUSDT"
+since = "2 year ago UTC"
 
-class Datacreation():
-    def __init__(self, apikey, secretkey, pair, since):
-        self.pair = pair
-        self.since = since
-        self.client = Client(apikey, secretkey)
-        self.dataframe = self.client.get_historical_klines(
-            self.pair, Client.KLINE_INTERVAL_1MINUTE, self.since)
+#Connect to the Binance client
+client = Client(keys.apiKey, keys.secretKey)
 
-    def creation(self):
-        self.dataframe = pd.DataFrame(
-            self.dataframe,
-            columns=[
-                "Open time",
-                "Open",
-                "High",
-                "Low",
-                "Close",
-                "Volume",
-                "Close time",
-                "Quote asset volume",
-                "Number of trades",
-                "Taker buy base asset volume",
-                "Taker buy quote asset volume",
-                "Ignore",
-            ],
-        )
-        self.dataframe.to_csv(self.pair + ".csv", index=False)
+# Get the data from Binance
+df = client.get_historical_klines(pair, Client.KLINE_INTERVAL_1MINUTE, since)
 
-    def normalize(self, dataframe):
-        #scale between 0 and 1
-        #Error when min and max values are the same
-        result = dataframe.copy()
-        for feature_name in dataframe:
-            max_value = dataframe[feature_name].max()
-            min_value = dataframe[feature_name].min()
-            result[feature_name] = (dataframe[feature_name] -
-                                    min_value) / (max_value - min_value)
+# Store the open and close values in a pandas dataframe
+real_values = []
+for i in df:
+    real_values.append([i[1], i[3]])
 
-        self.normalized = result
-        return self.normalized
+real_df = pd.DataFrame(real_values, columns=["Real open", "Real close"])
 
-    def standardize(self):
-        df = pd.read_csv(self.pair + '.csv')
-        # Delete useless columns
-        df.drop(['Open time', 'Close time', "Ignore"], axis=1, inplace=True)
-        # Remove the trend
-        result = df.copy()
-        result[['Open', 'High', 'Low',
-                'Close']] = result[['Open', 'High', 'Low',
-                                    'Close']].diff(axis=0, periods=-1)
-        result = result[:-1]
-        return result
+# Normalize the data
+normalizer = MinMaxScaler().fit(df)
+df = normalizer.transform(df)
 
-    def uniformalize(self):
-        self.creation()
-        result = self.normalize(self.standardize())
-        result.plot()
+# Transform the data to a pandas array
+df = pd.DataFrame(df,
+                  columns=[
+                      "Open time", "Open", "High", "Low", "Close", "Volume",
+                      "Close time", "Quote asset volume", "Number of trades",
+                      "Taker buy base asset volume",
+                      "Taker buy quote asset volume", "Ignore"
+                  ])
 
-        # Add the real open and close price
-        to_be_added = self.dataframe[['Open', 'Close']]
-        to_be_added.columns = ['Real open', 'Real close']
-        to_be_added = to_be_added[:-1]
-        result = pd.concat([result, to_be_added], axis=1, sort=False)
+# Drop useless columns
+df.drop(["Open time", "Close time", "Ignore"], axis=1, inplace=True)
 
-        # Add the csv and plot the result
-        result.to_csv("datafile/" + self.pair + ".csv")
-        os.remove(self.pair + '.csv')
-        pyplot.show()
+#Plot the data
+df.plot()
+
+# Add the real open and the real close to df
+df = pd.concat([df, real_df], axis=1)
+
+# Remove the last timestep
+df = df[:-1]
+
+# Add to the csv file
+df.to_csv("datafile/" + pair + ".csv")
+
+#Show the plot
+pyplot.show()
