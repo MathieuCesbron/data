@@ -8,6 +8,6 @@
 
 Example:
 
-![](https://github.com/MathieuCesbron/data/blob/master/images/Capture.PNG)
+![](https://github.com/MathieuCesbron/data/blob/master/images/Capture2.PNG)
 
 3. You can alternatively change what pair and timeframe you want for your data in main.py
