@@ -1,3 +1,6 @@
 .vscode/
 __pycache__/
 datafile/
+Dockerfile
+.dockerignore
+*.csv

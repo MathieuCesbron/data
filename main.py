@@ -6,7 +6,7 @@ import keys
 
 #Changes these values to obtain the desired csv
 pair = "BTCUSDT"
-since = "2 year ago UTC"
+since = "1 month ago UTC"
 
 #Connect to the Binance client
 client = Client(keys.apiKey, keys.secretKey)
