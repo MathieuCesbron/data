@@ -3,4 +3,5 @@ __pycache__/
 datafile/
 Dockerfile
 .dockerignore
+docker-compose
 *.csv

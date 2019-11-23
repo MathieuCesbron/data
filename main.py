@@ -3,10 +3,11 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from matplotlib import pyplot
 import pandas as pd
 import keys
+import os
 
 #Changes these values to obtain the desired csv
 pair = "BTCUSDT"
-since = "1 month ago UTC"
+since = os.getenv("SINCE", "1 day ago UTC")
 
 #Connect to the Binance client
 client = Client(keys.apiKey, keys.secretKey)
