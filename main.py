@@ -7,7 +7,7 @@ import os
 
 #Changes these values to obtain the desired csv
 pair = os.getenv("PAIR", "BTCUSDT")
-since = os.getenv("SINCE", "1 day ago UTC")
+since = os.getenv("SINCE", "6 year ago UTC")
 
 #Connect to the Binance client
 client = Client(keys.apiKey, keys.secretKey)

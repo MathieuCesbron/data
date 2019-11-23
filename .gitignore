@@ -1,6 +1,5 @@
 .vscode/
 __pycache__/
-datafile/
 Dockerfile
 .dockerignore
 docker-compose
