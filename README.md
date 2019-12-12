@@ -1,10 +1,12 @@
 # data
 
-1. To generate data, run main.py
+1. Add your binance API keys on keys.py
 
-2. The data will be stored in the folder datafile
+2. To generate data, run main.py
 
-3. A graph will be plot to show how the data looks like
+3. The data will be stored in the folder datafile
+
+4. A graph will be plot to show how the data looks like
 
 Example:
 
